@@ -356,6 +356,7 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 
 	async read(resource: URI, options?: IReadTextFileOptions): Promise<ITextFileContent> {
 		const content = await this.fileService.readFile(resource, options);
+		const encoding = (options && options.encoding) || 'utf8';
 
 		// in case of acceptTextOnly: true, we check the first
 		// chunk for possibly being binary by looking for 0-bytes
@@ -364,8 +365,8 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 
 		return {
 			...content,
-			encoding: 'utf8',
-			value: content.value.toString()
+			encoding,
+			value: content.value.toString(encoding)
 		};
 	}
 
@@ -386,10 +387,17 @@ export abstract class AbstractTextFileService extends Disposable implements ITex
 			return undefined;
 		};
 
+		const encoding = (options && options.encoding) || 'utf8';
+		const createStreamDecoder = (encoding: string) => (chunk: VSBuffer) => chunk.toString(encoding);
+
 		return {
 			...stream,
-			encoding: 'utf8',
-			value: await createTextBufferFactoryFromStream(stream.value, undefined, options && options.acceptTextOnly ? throwOnBinary : undefined)
+			encoding,
+			value: await createTextBufferFactoryFromStream(
+				stream.value,
+				createStreamDecoder(encoding),
+				options && options.acceptTextOnly ? throwOnBinary : undefined
+			)
 		};
 	}
 
