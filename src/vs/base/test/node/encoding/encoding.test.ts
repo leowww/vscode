@@ -200,7 +200,7 @@ suite('Encoding', () => {
 		const file = getPathFromAmdModule(require, './fixtures/some.cp1252.txt');
 		const buffer = await readExactlyByFile(file, 512 * 8);
 		const mimes = await encoding.detectEncodingFromBuffer(buffer, true);
-		assert.equal(mimes.encoding, 'windows1252');
+		assert.equal(mimes.encoding, 'cp1252');
 	});
 
 	async function readAndDecodeFromDisk(path: string, fileEncoding: string | null) {

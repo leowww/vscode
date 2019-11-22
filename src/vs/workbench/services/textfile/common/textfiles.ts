@@ -597,7 +597,7 @@ export const SUPPORTED_ENCODINGS: { [encoding: string]: { labelLong: string; lab
 		labelShort: 'UTF-16 BE',
 		order: 4
 	},
-	windows1252: {
+	cp1252: {
 		labelLong: 'Western (Windows 1252)',
 		labelShort: 'Windows 1252',
 		order: 5

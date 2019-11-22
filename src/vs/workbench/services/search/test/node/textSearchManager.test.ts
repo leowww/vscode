@@ -29,7 +29,7 @@ suite('TextSearchManager', () => {
 			},
 			folderQueries: [{
 				folder: URI.file('/some/folder'),
-				fileEncoding: 'windows1252'
+				fileEncoding: 'cp1252'
 			}]
 		};
 
