@@ -442,7 +442,7 @@ suite('Files - TextFileService i/o', () => {
 
 	test('readStream - encoding picked up (CP1252)', async () => {
 		const resource = URI.file(join(testDir, 'some_small_cp1252.txt'));
-		const encoding = 'cp1252';
+		const encoding = 'windows1252';
 
 		const result = await service.readStream(resource, { encoding });
 		assert.equal(result.encoding, encoding);
@@ -451,7 +451,7 @@ suite('Files - TextFileService i/o', () => {
 
 	test('read - encoding picked up (CP1252)', async () => {
 		const resource = URI.file(join(testDir, 'some_small_cp1252.txt'));
-		const encoding = 'cp1252';
+		const encoding = 'windows1252';
 
 		const result = await service.read(resource, { encoding });
 		assert.equal(result.encoding, encoding);
@@ -479,8 +479,8 @@ suite('Files - TextFileService i/o', () => {
 	test('readStream - user overrides BOM', async () => {
 		const resource = URI.file(join(testDir, 'some_utf16le.css'));
 
-		const result = await service.readStream(resource, { encoding: 'cp1252' });
-		assert.equal(result.encoding, 'cp1252');
+		const result = await service.readStream(resource, { encoding: 'windows1252' });
+		assert.equal(result.encoding, 'windows1252');
 	});
 
 	test('readStream - BOM removed', async () => {
@@ -500,7 +500,7 @@ suite('Files - TextFileService i/o', () => {
 	test('readStream - encoding override', async () => {
 		const resource = URI.file(join(testDir, 'some.utf16le'));
 
-		const result = await service.readStream(resource, { encoding: 'cp1252' });
+		const result = await service.readStream(resource, { encoding: 'windows1252' });
 		assert.equal(result.encoding, 'utf16le');
 		assert.equal(result.value.getFirstLineText(999999), 'This is some UTF 16 with BOM file.');
 	});
@@ -567,7 +567,7 @@ suite('Files - TextFileService i/o', () => {
 		const resource = URI.file(join(testDir, 'some_cp1252.txt'));
 
 		const result = await service.readStream(resource, { autoGuessEncoding: true });
-		assert.equal(result.encoding, 'cp1252');
+		assert.equal(result.encoding, 'windows1252');
 	});
 
 	test('readStream - FILE_IS_BINARY', async () => {
