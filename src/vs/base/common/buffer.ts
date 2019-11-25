@@ -71,7 +71,7 @@ export class VSBuffer {
 			return this.buffer.toString();
 		} else {
 			if (!textDecoder || textDecoder.encoding !== encoding) {
-				textDecoder = new TextDecoder(encoding);
+				textDecoder = new TextDecoder(encoding.replace("windows", "windows-"));
 			}
 			return textDecoder.decode(this.buffer);
 		}
